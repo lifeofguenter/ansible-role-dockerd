@@ -1,0 +1,16 @@
+---
+
+- name: Import os.yml
+  ansible.builtin.import_tasks: os.yml
+
+- name: Import dependencies.yml
+  ansible.builtin.import_tasks: dependencies.yml
+
+- name: Import install.yml
+  ansible.builtin.import_tasks: install.yml
+
+- name: Import configure.yml
+  ansible.builtin.import_tasks: configure.yml
+
+- name: Import crontab.yml
+  ansible.builtin.import_tasks: crontab.yml

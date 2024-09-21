@@ -1,0 +1,20 @@
+---
+
+galaxy_info:
+  role_name: dockerd
+  namespace: lifeofguenter
+  author: Günter Grodotzki
+  description: Installs Dockerd.
+  license: MIT
+  min_ansible_version: '2.10'
+  platforms:
+    - name: Ubuntu
+      versions:
+        - noble
+        - jammy
+    - name: Debian
+      versions:
+        - bookworm
+  galaxy_tags:
+    - system
+dependencies: []

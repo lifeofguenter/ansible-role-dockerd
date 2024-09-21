@@ -1,0 +1,9 @@
+.DS_Store
+*~
+.attach_pid*
+/.idea/
+/.env
+/.env.*
+
+*.retry
+/.roles

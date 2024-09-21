@@ -1,0 +1,9 @@
+---
+
+- name: Test Suite
+  hosts: localhost
+
+  tasks:
+    - name: Import role project
+      ansible.builtin.import_role:
+        name: project
