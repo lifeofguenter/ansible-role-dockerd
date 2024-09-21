@@ -1,0 +1,9 @@
+---
+
+- name: Upsert daemon.json
+  ansible.builtin.template:
+    src: daemon.json
+    dest: /etc/docker/daemon.json
+    mode: '0644'
+  become: true
+  notify: Restart_docker

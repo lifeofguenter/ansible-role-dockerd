@@ -1,0 +1,43 @@
+---
+
+- name: Add docker cron MAILTO
+  ansible.builtin.cron:
+    cron_file: docker
+    user: root
+    name: MAILTO
+    env: true
+    value: "{{ admin_addr_to }}"
+  become: true
+  when: admin_addr_to is defined
+
+- name: Add docker cron MAILFROM
+  ansible.builtin.cron:
+    cron_file: docker
+    user: root
+    name: MAILFROM
+    env: true
+    value: "{{ admin_addr_from }}"
+  become: true
+  when: admin_addr_from is defined
+
+- name: Add docker cron soft-cleanup
+  ansible.builtin.cron:
+    cron_file: docker
+    user: root
+    name: docker soft-cleanup
+    minute: '0'
+    hour: '0'
+    day: '1'
+    job: docker system prune --force > /dev/null
+  become: true
+
+- name: Add docker cron hard-cleanup
+  ansible.builtin.cron:
+    cron_file: docker
+    user: root
+    name: docker hard-cleanup
+    minute: '0'
+    hour: '1'
+    day: '15'
+    job: docker system prune --all --volumes --force --filter "label!=keepme" > /dev/null
+  become: true
