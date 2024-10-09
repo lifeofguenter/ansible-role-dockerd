@@ -20,6 +20,7 @@ jobs:
 
       - run: ansible --version
       - run: ansible-lint --version
+      - run: ansible-galaxy collection install community.general
 
       - checkout
 
