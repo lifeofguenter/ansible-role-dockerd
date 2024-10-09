@@ -17,3 +17,10 @@
   when:
     - stat_vm_max_map_count.stat.exists
     - stat_vm_max_map_count.stat.writeable
+
+- name: Add br_netfilter
+  community.general.modprobe:
+    name: br_netfilter
+    state: present
+    persistent: present
+  become: true

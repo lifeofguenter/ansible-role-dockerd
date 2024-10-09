@@ -13,7 +13,6 @@ jobs:
       ANSIBLE_PYTHON_INTERPRETER: /usr/bin/python3
 
     steps:
-      - run: ls -lh /etc/apt/sources.list.d/
       - run: sudo rm -f /etc/apt/sources.list.d/google.list /etc/apt/sources.list.d/heroku.list /etc/apt/sources.list.d/docker.list
       - run: sudo apt-get update
       - run: sudo apt remove --assume-yes --purge apparmor
