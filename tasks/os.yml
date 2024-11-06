@@ -29,7 +29,7 @@
   ansible.builtin.user:
     name: '{{ item }}'
     groups: docker
-    append: yes
+    append: true
   with_items: '{{ dockerd_users }}'
   when: dockerd_users is defined
   become: true
