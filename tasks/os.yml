@@ -24,3 +24,12 @@
     state: present
     persistent: present
   become: true
+
+- name: Add users to docker group
+  ansible.builtin.user:
+    name: '{{ item }}'
+    groups: docker
+    append: yes
+  with_items: '{{ dockerd_users }}'
+  when: dockerd_users is defined
+  become: true
