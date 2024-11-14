@@ -1,3 +1,6 @@
 {
+{% if dockerd_dns is defined %}
+  "dns": {{ dockerd_dns | to_json }},
+{% endif %}
   "log-driver": "local"
 }
