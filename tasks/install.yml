@@ -23,3 +23,12 @@
     update_cache: true
     cache_valid_time: 3600
   become: true
+
+- name: Add users to docker group
+  ansible.builtin.user:
+    name: '{{ item }}'
+    groups: docker
+    append: true
+  with_items: '{{ dockerd_users }}'
+  when: dockerd_users is defined
+  become: true
