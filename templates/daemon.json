@@ -2,5 +2,9 @@
 {% if dockerd_dns is defined %}
   "dns": {{ dockerd_dns | to_json }},
 {% endif %}
+{% if dockerd_fixed_cidr_v6 is defined %}
+  "ipv6": true,
+  "fixed-cidr-v6": "{{ dockerd_fixed_cidr_v6 }}",
+{% endif %}
   "log-driver": "local"
 }
