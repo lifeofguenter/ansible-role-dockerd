@@ -6,5 +6,19 @@
   "ipv6": true,
   "fixed-cidr-v6": "{{ dockerd_fixed_cidr_v6 }}",
 {% endif %}
-  "log-driver": "local"
+{% if dockerd_nvidia_runtime | default(false) | bool %}
+  "runtimes": {
+    "nvidia": {
+      "path": "nvidia-container-runtime",
+      "runtimeArgs": []
+    }
+  },
+  "default-runtime": "nvidia",
+{% endif %}
+  "log-driver": "json-file",
+  "log-opts": {
+    "max-size": "20m",
+    "max-file": "5"
+  },
+  "shutdown-timeout": 60
 }
