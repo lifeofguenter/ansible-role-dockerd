@@ -13,7 +13,6 @@
       "runtimeArgs": []
     }
   },
-  "default-runtime": "nvidia",
 {% endif %}
   "log-driver": "json-file",
   "log-opts": {
