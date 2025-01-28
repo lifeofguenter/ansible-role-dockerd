@@ -2,9 +2,21 @@
 {% if dockerd_dns is defined %}
   "dns": {{ dockerd_dns | to_json }},
 {% endif %}
+{% if dockerd_bip is defined %}
+  "bip": "{{ dockerd_bip }}",
+{% endif %}
+{% if dockerd_fixed_cidr is defined %}
+  "fixed-cidr": "{{ dockerd_fixed_cidr }}",
+{% endif %}
+{% if dockerd_ip6tables is defined %}
+  "ip6tables": {{ dockerd_ip6tables | bool | to_json }},
+{% endif %}
 {% if dockerd_fixed_cidr_v6 is defined %}
   "ipv6": true,
   "fixed-cidr-v6": "{{ dockerd_fixed_cidr_v6 }}",
+{% endif %}
+{% if dockerd_default_address_pools is defined %}
+  "default-address-pools": {{ dockerd_default_address_pools | to_json }},
 {% endif %}
 {% if dockerd_nvidia_runtime | default(false) | bool %}
   "runtimes": {
