@@ -41,3 +41,13 @@
     day: '15'
     job: docker system prune --all --volumes --force --filter "label!=keepme" > /dev/null
   become: true
+
+- name: Restart unhealthy containers
+  ansible.builtin.cron:
+    cron_file: docker
+    user: root
+    name: docker unhealthy-restart
+    minute: '*/2'
+    job: docker ps -q -f health=unhealthy | xargs --no-run-if-empty docker restart
+  become: true
+  when: dockerd_restart_unhealthy | default(false) | bool
