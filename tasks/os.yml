@@ -24,3 +24,22 @@
     state: present
     persistent: present
   become: true
+
+- name: Stat /proc/sys/vm/overcommit_memory
+  ansible.builtin.stat:
+    path: /proc/sys/vm/overcommit_memory
+  register: stat_vm_overcommit_memory
+  become: true
+
+- name: Enable vm.overcommit_memory
+  ansible.posix.sysctl:
+    name: "vm.overcommit_memory"
+    value: "1"
+    sysctl_set: true
+    state: present
+    reload: true
+  become: true
+  when:
+    - dockerd_overcommit_memory | default(false) | bool
+    - stat_vm_overcommit_memory.stat.exists
+    - stat_vm_overcommit_memory.stat.writeable
