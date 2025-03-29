@@ -1,4 +1,7 @@
 {
+{% if dockerd_live_restore is defined %}
+  "live-restore": {{ dockerd_live_restore | bool | to_json }},
+{% endif %}
 {% if dockerd_dns is defined %}
   "dns": {{ dockerd_dns | to_json }},
 {% endif %}
