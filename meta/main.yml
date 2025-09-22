@@ -8,13 +8,14 @@ galaxy_info:
   license: MIT
   min_ansible_version: '2.10'
   platforms:
+    - name: Debian
+      versions:
+        - trixie
+        - bookworm
     - name: Ubuntu
       versions:
         - noble
         - jammy
-    - name: Debian
-      versions:
-        - bookworm
   galaxy_tags:
     - system
 dependencies: []
