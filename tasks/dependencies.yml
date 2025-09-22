@@ -7,7 +7,6 @@
       - ca-certificates
       - curl
       - gnupg2
-      - software-properties-common
       - binfmt-support
       - apparmor-utils
       - python3-requests
