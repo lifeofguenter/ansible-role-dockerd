@@ -14,3 +14,6 @@
 
 - name: Import crontab.yml
   ansible.builtin.import_tasks: crontab.yml
+
+- name: Import tools.yml
+  ansible.builtin.import_tasks: tools.yml

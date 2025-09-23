@@ -1,0 +1,8 @@
+---
+
+- name: Install vackup
+  ansible.builtin.get_url:
+    url: https://raw.githubusercontent.com/BretFisher/docker-vackup/main/vackup
+    dest: /usr/local/bin/vackup
+    mode: a+x
+  become: true
