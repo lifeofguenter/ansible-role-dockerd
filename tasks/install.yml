@@ -16,8 +16,8 @@
 - name: Install docker-ce
   ansible.builtin.apt:
     name:
-      - docker-ce
-      - docker-ce-cli
+      - docker-ce{{ dockerd_apt_version | default('') }}
+      - docker-ce-cli{{ dockerd_apt_version | default('') }}
       - containerd.io
     state: present
     update_cache: true
