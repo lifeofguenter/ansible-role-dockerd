@@ -34,5 +34,8 @@
     "max-size": "20m",
     "max-file": "5"
   },
+{% if dockerd_experimental is defined %}
+  "experimental": {{ dockerd_experimental | bool | to_json }},
+{% endif %}
   "shutdown-timeout": 60
 }
