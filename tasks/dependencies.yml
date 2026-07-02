@@ -9,6 +9,7 @@
       - gnupg2
       - binfmt-support
       - apparmor-utils
+      - python3-debian
       - python3-requests
     state: present
     update_cache: true
