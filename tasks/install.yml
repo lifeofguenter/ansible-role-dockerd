@@ -19,6 +19,23 @@
     enabled: true
   become: true
 
+- name: Find legacy docker.io .list repository files
+  ansible.builtin.find:
+    paths: /etc/apt/sources.list.d
+    patterns: '*.list'
+    contains: 'download\.docker\.com'
+  register: legacy_docker_repos
+  become: true
+
+- name: Remove legacy docker.io .list repository files
+  ansible.builtin.file:
+    path: '{{ item.path }}'
+    state: absent
+  loop: '{{ legacy_docker_repos.files }}'
+  loop_control:
+    label: '{{ item.path }}'
+  become: true
+
 - name: Install docker-ce
   ansible.builtin.apt:
     name:
