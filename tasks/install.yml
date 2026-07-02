@@ -23,7 +23,7 @@
   ansible.builtin.find:
     paths: /etc/apt/sources.list.d
     patterns: '*.list'
-    contains: 'download\.docker\.com'
+    contains: '.*download\.docker\.com.*'
   register: legacy_docker_repos
   become: true
 
