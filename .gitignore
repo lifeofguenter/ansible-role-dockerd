@@ -6,4 +6,4 @@
 /.env.*
 
 *.retry
-/.roles
+/.ansible/

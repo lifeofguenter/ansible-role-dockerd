@@ -6,7 +6,7 @@ galaxy_info:
   author: Günter Grodotzki
   description: Installs Dockerd.
   license: MIT
-  min_ansible_version: '2.10'
+  min_ansible_version: '2.15'
   platforms:
     - name: Debian
       versions:

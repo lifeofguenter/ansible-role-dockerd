@@ -13,6 +13,7 @@
     sysctl_set: true
     state: present
     reload: true
+    sysctl_file: /etc/sysctl.d/20-dockerd.conf
   become: true
   when:
     - stat_vm_max_map_count.stat.exists
@@ -38,6 +39,7 @@
     sysctl_set: true
     state: present
     reload: true
+    sysctl_file: /etc/sysctl.d/20-dockerd.conf
   become: true
   when:
     - dockerd_overcommit_memory | default(false) | bool
