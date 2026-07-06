@@ -17,6 +17,7 @@
     signed_by: /etc/apt/trusted.gpg.d/docker.asc
     state: present
     enabled: true
+  register: dockerd_repo
   become: true
 
 - name: Find legacy docker.io .list repository files
@@ -34,6 +35,12 @@
   loop: '{{ legacy_docker_repos.files }}'
   loop_control:
     label: '{{ item.path }}'
+  become: true
+
+- name: Update apt cache after repository changes
+  ansible.builtin.apt:
+    update_cache: true
+  when: dockerd_repo is changed or legacy_docker_repos.matched > 0
   become: true
 
 - name: Install docker-ce
