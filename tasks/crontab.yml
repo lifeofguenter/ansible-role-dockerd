@@ -20,26 +20,51 @@
   become: true
   when: admin_addr_from is defined
 
-- name: Add docker cron soft-cleanup
+- name: Remove legacy docker soft-cleanup cron
   ansible.builtin.cron:
     cron_file: docker
     user: root
     name: docker soft-cleanup
-    minute: '0'
-    hour: '0'
-    day: '1'
-    job: docker system prune --force > /dev/null
+    state: absent
   become: true
 
-- name: Add docker cron hard-cleanup
+- name: Remove legacy docker hard-cleanup cron
   ansible.builtin.cron:
     cron_file: docker
     user: root
     name: docker hard-cleanup
+    state: absent
+  become: true
+
+# Everything except volumes, and only items older than 8 days (192h) so that
+# weekly re-builds don't re-download images/layers that are still in rotation.
+- name: Add docker cron system-cleanup
+  ansible.builtin.cron:
+    cron_file: docker
+    user: root
+    name: docker system-cleanup
     minute: '0'
-    hour: '1'
-    day: '15'
-    job: docker system prune --all --volumes --force --filter "label!=keepme" > /dev/null
+    hour: '0'
+    job: docker system prune --all --force --filter "until=192h" --filter "label!=keepme" > /dev/null
+  become: true
+
+# Anonymous volumes can't be age-filtered by docker natively, so a helper
+# script removes only detached, unlabelled anonymous volumes older than 1h.
+- name: Install docker-anon-volume-prune helper
+  ansible.builtin.copy:
+    src: docker-anon-volume-prune.sh
+    dest: /usr/local/bin/docker-anon-volume-prune
+    mode: '0755'
+  become: true
+
+- name: Add docker cron volume-cleanup
+  ansible.builtin.cron:
+    cron_file: docker
+    user: root
+    name: docker volume-cleanup
+    minute: '30'
+    hour: '0'
+    job: /usr/local/bin/docker-anon-volume-prune > /dev/null
   become: true
 
 - name: Restart unhealthy containers
