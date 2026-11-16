@@ -29,6 +29,9 @@
     }
   },
 {% endif %}
+{% if dockerd_default_runtime is defined %}
+  "default-runtime": "{{ dockerd_default_runtime }}",
+{% endif %}
   "log-driver": "json-file",
   "log-opts": {
     "max-size": "20m",
